@@ -102,7 +102,7 @@ group :assets do
 
   # Font awesome - an icon font
   # https://github.com/bokmann/font-awesome-rails
-  gem "font-awesome-rails", "~> 4.0.0.0"
+  gem "font-awesome-rails"#, "~> 4.0.0.0"
 
   # Moment.js
   # https://github.com/derekprior/momentjs-rails
