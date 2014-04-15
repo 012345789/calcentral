@@ -22,6 +22,7 @@ cache:
     MyCampusLinksController: <%= 1.day %>
     MyClasses::Merged: <%= 1.day %>
     Financials::MyFinancials: <%= 1.day %>
+    Cal1card::MyCal1card: <%= 1.day %>
     MyGroups::Merged: <%= 1.day %>
     MyTasks::Merged: <%= 1.day %>
     UpNext::MyUpNext: <%= 1.day %>
@@ -35,6 +36,10 @@ canvas_proxy:
 
 cas_server: 'https://auth-test.berkeley.edu/cas'
 cas_logout_url: 'https://auth-test.berkeley.edu/cas/logout'
+
+developer_auth:
+  enabled: true
+  password: topsecret!
 
 financials_proxy:
   fake: true
@@ -51,6 +56,9 @@ logger:
   slow_query_threshold_in_ms: 2000
 
 myfinaid_proxy:
+  fake: true
+
+cal1card_proxy:
   fake: true
 
 postgres:
@@ -81,3 +89,4 @@ features:
   videos: true
   podcasts: true
   app_alerts: true
+  cal1card: true

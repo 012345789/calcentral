@@ -44,7 +44,7 @@ describe Notifications::FinalGradesEventProcessor do
     saved_notification.should_not be_nil
     saved_notification.data.should_not be_nil
     saved_notification.translator.should == "FinalGradesTranslator"
-    saved_notification.occurred_at.to_i.should == timestamp.to_i
+    saved_notification.occurred_at.to_time.to_i.should == timestamp.to_time.to_i
     Rails.logger.info "Saved notification's json is #{saved_notification.data}"
 
     Notifications::Notification.where(:uid => "323487").first.data.should_not be_nil
@@ -71,7 +71,7 @@ describe Notifications::FinalGradesEventProcessor do
     CampusOracle::Queries.stub(:get_enrolled_students).with(7366, 2013, 'C').and_return([])
     User::Api.should_not_receive(:delete)
     Calcentral::USER_CACHE_EXPIRATION.should_not_receive(:notify)
-    User::Data.stub(:where, "300846").and_return(NonexistentUserData.new)
+    User::Data.stub(:where, {uid: "300846"}).and_return(NonexistentUserData.new)
     @processor.process(event, timestamp).should == true
   end
 

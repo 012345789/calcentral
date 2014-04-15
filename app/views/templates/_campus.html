@@ -10,9 +10,27 @@
         <div class="cc-widget-title">
           <h2>Links</h2>
         </div>
+
+        <div class="gorlans-widget" data-ng-if="currentTopCategory === 'Food & Housing'" data-ng-controller="gorlanController">
+          <h2> Cal 1 Card </h2>
+
+          <p>Your current balance: {{ amount | currency }}</p>
+          
+          <div>
+            <p data-ng-repeat="button in buttons">
+              
+              <button type="button" class="btn  {{button.cal1cardButtonType}}  pull-right" ng-click="button.cal1cardButtonAction()">{{button.cal1cardButtonLabel}}</button>
+            </p>
+            
+          </div>
+
+
+          <div><%= link_to "Check transactions", '/#' %></div>
+
+        </div>
+
         <div class="cc-list-link-container" data-ng-repeat="subcategory in subcategories">
           <h3>{{subcategory}}</h3>
-
           <ul class="cc-list-links">
             <li data-ng-repeat="link in links | orderBy:'name' | linksubcategory:subcategory">
               <a data-ng-href="{{link.url}}"
@@ -38,5 +56,11 @@
 
     </div>
   </div>
+
+<!--- testing 
+<div>
+  <p>placeholder for cal1card card</p>
+</div>
+--->
 
 </script>

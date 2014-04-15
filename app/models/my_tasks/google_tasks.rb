@@ -82,7 +82,7 @@ module MyTasks
       formatted_entry = {}
       formatted_entry["title"] = entry["title"]
       if entry["dueDate"] && !entry["dueDate"].blank?
-        formatted_entry["due"] = Date.strptime(entry["dueDate"]).to_time_in_current_zone.to_datetime
+        formatted_entry["due"] = Date.strptime(entry["dueDate"]).in_time_zone.to_datetime
       end
       formatted_entry["notes"] = entry["notes"] if entry["notes"]
       Rails.logger.debug "Formatted body entry for google proxy update_task: #{formatted_entry.inspect}"
@@ -104,7 +104,7 @@ module MyTasks
       formatted_entry["title"] = entry["title"] unless entry["title"].blank?
       formatted_entry["notes"] = entry["notes"] unless entry["notes"].nil?
       if entry["dueDate"] && entry["dueDate"]["date_time"]
-        formatted_entry["due"] = Date.strptime(entry["dueDate"]["date_time"]).to_time_in_current_zone.to_datetime
+        formatted_entry["due"] = Date.strptime(entry["dueDate"]["date_time"]).in_time_zone.to_datetime
       end
       Rails.logger.debug "Formatted body entry for google proxy update_task: #{formatted_entry.inspect}"
       formatted_entry
@@ -137,7 +137,7 @@ module MyTasks
         # accuracy so the application will apply the proper timezone when needed.
         due_date = Date.parse(due_date.to_s)
         # Tasks are not overdue until the end of the day.
-        due_date = due_date.to_time_in_current_zone.to_datetime.advance(:hours => 23, :minutes => 59, :seconds => 59)
+        due_date = due_date.in_time_zone.to_datetime.advance(:hours => 23, :minutes => 59, :seconds => 59)
       end
       formatted_entry["bucket"] = determine_bucket(due_date, formatted_entry, @now_time, @starting_date)
 
@@ -145,7 +145,7 @@ module MyTasks
         format_date_into_entry!(convert_date(entry["updated"]), formatted_entry, "updatedDate")
       end
 
-      Rails.logger.debug "#{self.class.name} Putting Google task with dueDate #{formatted_entry["due_date"]} in #{formatted_entry["bucket"]} bucket: #{formatted_entry}"
+      Rails.logger.debug "#{self.class.name} Putting Google task with dueDate #{formatted_entry["dueDate"]} in #{formatted_entry["bucket"]} bucket: #{formatted_entry}"
       format_date_into_entry!(due_date, formatted_entry, "dueDate")
       Rails.logger.debug "#{self.class.name}: Formatted body response from google proxy - #{formatted_entry.inspect}"
       formatted_entry
