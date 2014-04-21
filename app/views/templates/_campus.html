@@ -11,21 +11,54 @@
           <h2>Links</h2>
         </div>
 
-        <div class="gorlans-widget" data-ng-if="currentTopCategory === 'Food & Housing'" data-ng-controller="gorlanController">
-          <h2> Cal 1 Card </h2>
+        <div data-ng-if="currentTopCategory === 'Food & Housing'">
 
-          <p>Your current balance: {{ amount | currency }}</p>
-          
-          <div>
-            <p data-ng-repeat="button in buttons">
-              
-              <button type="button" class="btn  {{button.cal1cardButtonType}}  pull-right" ng-click="button.cal1cardButtonAction()">{{button.cal1cardButtonLabel}}</button>
-            </p>
+          <div class="cal1card-widget" data-ng-controller="cal1cardController">
+
+            <h2> Cal 1 Card </h2>
+
+            <p>Your current balance: {{ amount | currency }}</p>
             
+            <div>
+              <p data-ng-repeat="button in buttons">
+                
+                <button type="button" class="btn  {{button.cal1cardButtonType}}  pull-right" ng-click="button.cal1cardButtonAction()">{{button.cal1cardButtonLabel}}</button>
+              </p>
+              
+            </div>
+
+            <p><%= link_to "Check transactions", '/#' %></p>
+
           </div>
 
+          <div class="twitter-widget" data-ng-controller="twitterController">
+            <p>Displaying 
+              <select data-ng-model="selection" data-ng-options="number for number in numberOfTweets"></select> Tweets
+            </p>
+            <img src="app/assets/images/glass_magnifying_200x175.jpg">
+            <ul class="tweets">
+              <li class="tweet-individual" data-ng-repeat="tweet in tweets | orderBy: '-id' | limitTo:selection">
+                <p style="color:red">[For testing purposes] selection: {{selection}}, $index: {{$index}}</p>
+                <p>{{tweet.user_name}}</p>
+                <p>{{tweet.user_id}}</p>
+                <p><%= image_tag "images/glass_magnifying_200x175.jpg" %><img src="images/glass_magnifying_200x175.jpg"></p>
+                <p><img data-ng-src="{{tweet.user_picture}}"></p>
+                <p>{{tweet.tweet}}</p>
+                <p>Date: {{tweet.time}}</p>
+                <p>Retweets: {{tweet.retweets}}</p>
+                <p>Favorites: {{tweet.favorites}}</p>
+              </li>
+            </ul>
 
-          <div><%= link_to "Check transactions", '/#' %></div>
+          </div>
+
+          <!-- TESTING CLASSES 
+          <div class="test-classes" data-ng-controller="myClassesController">
+
+            <li class="test-class" data-ng-repeat="oneclass in classes"></li>
+
+          </div>
+          TESTING CLASSES END -->
 
         </div>
 
@@ -57,26 +90,7 @@
     </div>
   </div>
 
-<script src="http://twitterjs.googlecode.com/svn/trunk/src/twitter.min.js"></script>
-<script type="text/javascript" charset="utf-8">
-getTwitters('tweet', {
-    id: 'username',
-    count: 3,
-    enableLinks: true,
-    ignoreReplies: true,
-    clearContents: true,
-    template: '"%text%" <a href="http://twitter.com/%user_screen_name%/statuses/CalDining/">%time%</a>'
-});
-</script>
 
-<div id="tweet"></div>
 
-<iframe ng-show="user.twitter" allowtransparency="true" frameborder="0" scrolling="no" src="//platform.twitter.com/widgets/follow_button.html?screen_name=CalDining" style="width:300px; height:20px;"></iframe>
-
-<!--- testing 
-<div>
-  <p>placeholder for cal1card card</p>
-</div>
---->
 
 </script>

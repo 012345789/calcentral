@@ -4,7 +4,7 @@
   /**
    * Meal Points controller
    */
-  angular.module('calcentral.controllers').controller('gorlanController', function($scope) {
+  angular.module('calcentral.controllers').controller('cal1cardController', function($scope) {
 
     $scope.amount = 0;
 
@@ -25,5 +25,6 @@
     	'cal1cardButtonAction': $scope.donateAmount}];
 
   });
+
 
 })(window.angular);
